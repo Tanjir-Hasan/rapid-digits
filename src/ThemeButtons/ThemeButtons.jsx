@@ -12,9 +12,9 @@ const ThemeButtons = () => {
 
     const position = isMobile ? "top-right" : "bottom-center";
 
-    const handleLightButtonClick = () => {
-        toggleTheme('light');
-        toast.success('Light Theme Activated', {
+    const handlePurpleButtonClick = () => {
+        toggleTheme('purple');
+        toast.success('Purple Theme Activated', {
             position: position,
             autoClose: 1500,
             hideProgressBar: false,
@@ -23,33 +23,16 @@ const ThemeButtons = () => {
             draggable: true,
             progress: undefined,
             style: {
-                backgroundColor: '#f8f9fa',
-                color: '#000'
-            }
-        });
-    };
-
-    const handleDarkButtonClick = () => {
-        toggleTheme('dark');
-        toast.success('Dark Theme Activated', {
-            position: position,
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            style: {
-                backgroundColor: '#080708',
+                backgroundColor: '#6d029f',
                 color: '#fff'
             }
         });
 
     };
 
-    const handleGreenButtonClick = () => {
-        toggleTheme('green');
-        toast.success('Green Theme Activated', {
+    const handleMintButtonClick = () => {
+        toggleTheme('mint');
+        toast.success('Mint Theme Activated', {
             position: position,
             autoClose: 1500,
             hideProgressBar: false,
@@ -58,7 +41,7 @@ const ThemeButtons = () => {
             draggable: true,
             progress: undefined,
             style: {
-                backgroundColor: '#354f52',
+                backgroundColor: '#739b00',
                 color: '#fff'
             }
         });
@@ -75,30 +58,45 @@ const ThemeButtons = () => {
             draggable: true,
             progress: undefined,
             style: {
-                backgroundColor: '#013a63',
+                backgroundColor: '#1180e1',
+                color: '#fff'
+            }
+        });
+    };
+
+    const handleRedButtonClick = () => {
+        toggleTheme('red');
+        toast.success('Red Theme Activated', {
+            position: position,
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            style: {
+                backgroundColor: '#8d0000',
                 color: '#fff'
             }
         });
     };
 
     return (
-        <div className='flex flex-row space-x-5'>
+        <div className='flex flex-row space-x-2 -ml-2'>
 
             <ToastContainer />
 
-            <AiTwotoneClockCircle disabled={theme === 'light'} onClick={handleLightButtonClick}
-                className={`${theme === 'light' ? 'text-[#c9184a]' : 'text-[#000]'}`} />
+            <AiTwotoneClockCircle disabled={theme === 'mint'} onClick={handleMintButtonClick}
+                className={`cursor-pointer ${theme === 'mint' ? 'text-[#739b00]' : 'text-[#739b00]'}`} />
 
-            <AiTwotoneClockCircle disabled={theme === 'dark'} onClick={handleDarkButtonClick}
-                className={`${theme === 'dark' ? 'text-[#b04261]' : 'text-[#fff]'}`} />
+            <AiTwotoneClockCircle disabled={theme === 'dark'} onClick={handlePurpleButtonClick}
+                className={`cursor-pointer ${theme === 'dark' ? 'text-[#6d029f]' : 'text-[#6d029f]'}`} />
 
             <AiTwotoneClockCircle disabled={theme === 'blue'} onClick={handleBlueButtonClick}
-                className={`${theme === 'blue' ? 'text-[#e5557e]' : 'text-[#fff]'}`} />
+                className={`cursor-pointer ${theme === 'blue' ? 'text-[#1180e1]' : 'text-[#1180e1]'}`} />
 
-            <AiTwotoneClockCircle disabled={theme === 'green'} onClick={handleGreenButtonClick}
-                className={`${theme === 'green' ? 'text-[#f390ac]' : 'text-[#fff]'}`} />
-
-            <AiTwotoneClockCircle />
+            <AiTwotoneClockCircle disabled={theme === 'red'} onClick={handleRedButtonClick}
+                className={`cursor-pointer ${theme === 'red' ? 'text-[#8d0000]' : 'text-[#8d0000]'}`} />
 
         </div>
     );

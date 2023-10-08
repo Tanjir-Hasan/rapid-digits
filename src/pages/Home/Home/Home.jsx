@@ -1,7 +1,9 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import DigitButton from "../../../component/DigitButton";
 import OperationButton from "../../../component/Operationbutton";
 import { HiBackspace } from 'react-icons/hi';
+import ThemeButtons from "../../../ThemeButtons/ThemeButtons";
+import { ThemeContext } from "../../../provider/ThemeProvider";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const ACTION = {
@@ -10,6 +12,7 @@ export const ACTION = {
     CLEAR: 'clear',
     DELETE_DIGIT: 'delete-digit',
     EVALUATE: 'evaluate',
+    PERCENTAGE: 'percentage',
 }
 
 function reducer(state, { type, payload }) {
@@ -35,6 +38,7 @@ function reducer(state, { type, payload }) {
                 ...state,
                 currentValue: `${state.currentValue || ""}${payload.digit}`
             }
+
         case ACTION.CHOOSE_OPERATION:
             if (state.currentValue == null && state.previousValue == null) {
                 return state
@@ -62,6 +66,26 @@ function reducer(state, { type, payload }) {
                 operation: payload.operation,
                 currentValue: null
             }
+
+        case ACTION.PERCENTAGE:
+            if (state.currentValue == null) {
+                return state;
+            }
+
+            // eslint-disable-next-line no-case-declarations
+            const currentValue = parseFloat(state.currentValue);
+            if (isNaN(currentValue)) {
+                return state;
+            }
+
+            // eslint-disable-next-line no-case-declarations
+            const percentageValue = currentValue / 100;
+
+            return {
+                ...state,
+                currentValue: percentageValue.toString(),
+                overWrite: true
+            };
 
         // eslint-disable-next-line no-fallthrough
         case ACTION.CLEAR:
@@ -134,38 +158,45 @@ function evaluate({ currentValue, previousValue, operation }) {
     return computation.toString();
 }
 
-const INTEGER_FORMATER = new Intl.NumberFormat("en-us", {
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
     maximumFractionDigits: 0,
 })
 
 function formatOperations(operation) {
     if (operation == null) return
     const [integer, decimal] = operation.split('.')
-    if (decimal == null) return INTEGER_FORMATER.format(integer)
-    return `${INTEGER_FORMATER.format(integer)}.${decimal}`
+    if (decimal == null) return INTEGER_FORMATTER.format(integer)
+    return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
 }
 
 const Home = () => {
 
     const [{ currentValue, previousValue, operation }, dispatch] = useReducer(reducer, {});
 
-    // dispatch({ type: ACTION.ADD_DIGIT, payload: { digit: 1 } })
+    const { theme } = useContext(ThemeContext);
 
     return (
-        <div className="">
+        <>
 
             <div className="relative flex justify-center items-center">
 
+
                 <div className="lg:w-1/5 w-10/12 h-[500px] p-5 mx-auto font-[Cinzel] bg-[#2b2b2c] grid grid-cols-4 gap-2 mt-32 rounded-2xl z-50">
+
+                    <div className="col-span-2"><ThemeButtons></ThemeButtons></div>
+
+                    {/* Calculation field */}
                     <div className="col-span-4 h-32">
                         <div className="break-all">
                             <div className="text-white flex justify-end">{formatOperations(previousValue)} {operation}</div>
                             <div className="text-white text-3xl flex justify-end mt-5">{formatOperations(currentValue)}</div>
                         </div>
                     </div>
+                    {/* Calculation field */}
 
-                    <button className="text-white rounded-2xl bg-[#616161] col-span-2" onClick={() => dispatch({ type: ACTION.CLEAR })}>C</button>
-                    <button className="text-white rounded-2xl bg-[#616161] flex justify-center items-center" onClick={() => dispatch({ type: ACTION.DELETE_DIGIT })}>
+                    {/* buttons */}
+                    <button className="text-black rounded-full bg-[#c6c6c6] col-span-2" onClick={() => dispatch({ type: ACTION.CLEAR })}>C</button>
+                    <button className="text-black rounded-2xl bg-[#c6c6c6] flex justify-center items-center" onClick={() => dispatch({ type: ACTION.DELETE_DIGIT })}>
                         <HiBackspace className="text-2xl" />
                     </button>
                     <OperationButton operation="÷" dispatch={dispatch} className="text-white rounded-2xl bg-[#739b00]" />
@@ -188,7 +219,12 @@ const Home = () => {
                     <DigitButton digit="%" dispatch={dispatch} />
                     <DigitButton digit="0" dispatch={dispatch} />
                     <DigitButton digit="." dispatch={dispatch} />
-                    <button className="text-white rounded-2xl bg-[#739b00]" onClick={() => dispatch({ type: ACTION.EVALUATE })}>=</button>
+                    <button className={`rounded-full text-white ${theme === 'red' ? 'bg-[#8d0000]' :
+                        theme === 'blue' ? 'bg-[#1180e1]' :
+                            theme === 'purple' ? 'bg-[#6d029f]' :
+                                theme === 'mint' ? 'bg-[#739b00]' : ''}`} onClick={() => dispatch({ type: ACTION.EVALUATE })}>=</button>
+                    {/* buttons */}
+
                 </div>
 
                 <div className="fixed top-1 lg:left-72 left-1 lg:w-1/3 lg:h-2/3 w-80 h-80 mx-auto rounded-full bg-rose-600 z-0"></div>
@@ -197,7 +233,7 @@ const Home = () => {
 
             </div>
 
-        </div>
+        </>
     );
 };
 
