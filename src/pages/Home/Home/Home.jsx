@@ -194,6 +194,7 @@ const Home = () => {
                     {/* Calculation field */}
 
                     {/* buttons */}
+
                     <button className="text-black rounded-full bg-[#c6c6c6] col-span-2" onClick={() => dispatch({ type: ACTION.CLEAR })}>C</button>
                     <button className="text-black rounded-2xl bg-[#c6c6c6] flex justify-center items-center" onClick={() => dispatch({ type: ACTION.DELETE_DIGIT })}>
                         <HiBackspace className="text-2xl" />
@@ -222,19 +223,24 @@ const Home = () => {
                         theme === 'blue' ? 'bg-[#1180e1]' :
                             theme === 'purple' ? 'bg-[#6d029f]' :
                                 theme === 'mint' ? 'bg-[#739b00]' : ''}`} onClick={() => dispatch({ type: ACTION.EVALUATE })}>=</button>
+
                     {/* buttons */}
 
                 </div>
 
 
                 <div className="relative flex justify-center items-center">
+
                     <div className="fixed top-1 lg:left-80 left-1 lg:w-[500px] lg:h-[500px] w-80 h-80 mx-auto rounded-full bg-[#f2542d] z-0"></div>
                     <div className={`fixed top-1 lg:left-80 left-1 lg:w-[500px] lg:h-[500px] w-80 h-80 border animate-spin border-dotted rounded-full shadow-lg shadow-[#f2542d]`}></div>
+
                 </div>
 
                 <div className="relative flex justify-center items-center">
+
                     <div className="fixed top-96 lg:right-72 -right-24 lg:w-96 lg:h-96 w-80 h-80 mx-auto rounded-full bg-[#272640] z-0"></div>
                     <div className={`fixed top-96 lg:right-72 -right-24 lg:w-96 lg:h-96 w-80 h-80 border animate-spin border-dotted rounded-full shadow-lg shadow-[#272640]`}></div>
+                    
                 </div>
 
             </div>
