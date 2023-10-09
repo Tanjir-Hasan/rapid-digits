@@ -180,7 +180,6 @@ const Home = () => {
 
             <div className="relative flex justify-center items-center">
 
-
                 <div className="lg:w-1/5 w-10/12 h-[500px] p-5 mx-auto font-[Cinzel] bg-[#2b2b2c] grid grid-cols-4 gap-2 mt-32 rounded-2xl z-50">
 
                     <div className="col-span-2"><ThemeButtons></ThemeButtons></div>
@@ -227,9 +226,16 @@ const Home = () => {
 
                 </div>
 
-                <div className="fixed top-1 lg:left-72 left-1 lg:w-1/3 lg:h-2/3 w-80 h-80 mx-auto rounded-full bg-rose-600 z-0"></div>
 
-                <div className="absolute top-96 lg:right-72 -right-24 lg:w-96 lg:h-96 w-80 h-80 mx-auto rounded-full bg-green-600 z-0"></div>
+                <div className="relative flex justify-center items-center">
+                    <div className="fixed top-1 lg:left-80 left-1 lg:w-[500px] lg:h-[500px] w-80 h-80 mx-auto rounded-full bg-[#f2542d] z-0"></div>
+                    <div className={`fixed top-1 lg:left-80 left-1 lg:w-[500px] lg:h-[500px] w-80 h-80 border animate-spin border-dotted rounded-full shadow-lg shadow-[#f2542d]`}></div>
+                </div>
+
+                <div className="relative flex justify-center items-center">
+                    <div className="fixed top-96 lg:right-72 -right-24 lg:w-96 lg:h-96 w-80 h-80 mx-auto rounded-full bg-[#272640] z-0"></div>
+                    <div className={`fixed top-96 lg:right-72 -right-24 lg:w-96 lg:h-96 w-80 h-80 border animate-spin border-dotted rounded-full shadow-lg shadow-[#272640]`}></div>
+                </div>
 
             </div>
 
